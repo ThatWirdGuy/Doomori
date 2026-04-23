@@ -22,8 +22,29 @@
     <canvas id="unity-canvas" style="width: 100vw; height: 100vh; background: #000000"></canvas>
     <script src="Build/WEBGL Doomori Build.loader.js"></script>
     <script>
+
+      const response_P1 = await fetch("Build/part_0.data");
+      const buffer_P1 = await response_P1.arrayBuffer();
+
+      const response_P2 = await fetch("Build/part_1.data");
+      const buffer_P2 = await response_P2.arrayBuffer();
+      
+      const Part_0 = new Uint8Array(buffer_P1);
+      const Part_1 = new Uint8Array(buffer_P2);
+      const merged = new Uint8Array(Part_0.length + Part_1.length)
+
+      merged.set(Part_0, 0);
+      merged.set(Part_1, Part_0.length);
+
+      const blob = new Blob([merged]);
+      const dataUrl = URL.createObjectURL(blob);
+
       createUnityInstance(document.querySelector("#unity-canvas"), {
+<<<<<<< Updated upstream
         dataUrl: "Build/WEBGL Doomori Build.data",
+=======
+        dataUrl: dataUrl,
+>>>>>>> Stashed changes
         frameworkUrl: "Build/WEBGL Doomori Build.framework.js",
         codeUrl: "Build/WEBGL Doomori Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
@@ -33,4 +54,8 @@
       });
     </script>
   </body>
+<<<<<<< Updated upstream
 </html>
+=======
+</html>
+>>>>>>> Stashed changes
